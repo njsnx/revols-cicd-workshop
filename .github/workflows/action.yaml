@@ -27,8 +27,11 @@ jobs:
           prefix: REVOL_
           decryption: true # optional, default false
       - run: env
-      #  - uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-region: eu-west-2
-      #     aws-access-key-id: ${{ env.REVOL_access }}
-      #     aws-secret-access-key: ${{ env.REVOL_secret }}
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: eu-west-2
+          aws-access-key-id: ${{ env.REVOL_access }}
+          aws-secret-access-key: ${{ env.REVOL_secret }}
+      - name: STS Get Caller Identity
+        run: |
+          aws sts get-caller-identity
