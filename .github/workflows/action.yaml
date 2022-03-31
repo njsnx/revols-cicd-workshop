@@ -8,6 +8,15 @@ jobs:
         uses: actions/checkout@v2
       - name: Get AWS Secret from Github
         env: # Or as an environment variable
-          REVOL_AWS_ACESS: ${{ secrets.AWS_ACCESS_KEY }}
+          REVOL_AWS_ACCESS: ${{ secrets.AWS_ACCESS_KEY }}
           REVOL_AWS_SECRET: ${{ secrets.AWS_SECRET_KEY }}
         run: echo "$REVOL_AWS_SECRET and $REVOL_AWS_ACCESS"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: eu-west-2
+      - name: STS Get Caller Identity
+        run: |
+          aws sts get-caller-identity
