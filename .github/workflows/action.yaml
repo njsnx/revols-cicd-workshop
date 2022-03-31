@@ -20,3 +20,15 @@ jobs:
       - name: STS Get Caller Identity
         run: |
           aws sts get-caller-identity
+      - name: aws-ssm-to-env
+        uses: Bardavon-Health/actions-aws-ssm-params-to-env@v1.2
+        with:
+          ssm-path: /github-actions/my-deployment-key # required
+          prefix: REVOL_
+          decryption: true # optional, default false
+      - run: env
+      #  - uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-region: eu-west-2
+      #     aws-access-key-id: ${{ env.REVOL_access }}
+      #     aws-secret-access-key: ${{ env.REVOL_secret }}
